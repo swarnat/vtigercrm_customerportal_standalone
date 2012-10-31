@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    var currentURL = "<?php echo CUSTOMER_PORTAL_URL ?>/ajax/fileupload.html";
+    var fileuploadModule = "<?=$this->module ?>";
+    var fileuploadCrmID = "<?=$this->recordID ?>";
+    var uploadFolderID = 0;
+</script>
+<div id="container">
+    <div id="filelist" style="display:none;">
+        <div style="margin-top:20px;border-bottom:1px solid #ccc;text-transform:uppercase;">Files to Upload:</div>
+    </div>
+    <br />
+    <ol>
+        <li><input type="button" name="select_file" value="<?php echo T_("Select files to upload") ?>" id="pickfiles"></li>
+        <li><input type="button" name="select_file" value="<?php echo T_("Upload these files!") ?>" id="uploadfiles"></li>
+    </ol>
+</div>
+
+<script type="text/javascript" src="<?=TEMPLATE_ROOT ?>/js/plupload/plupload.full.js"></script>
+<script type="text/javascript" src="<?=TEMPLATE_ROOT ?>/js/manage_fileupload.js"></script>

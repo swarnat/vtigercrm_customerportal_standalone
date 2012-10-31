@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="<?=TEMPLATE_ROOT ?>css/normalize.css">
+        <link rel="stylesheet" href="<?=TEMPLATE_ROOT ?>css/main.css">
+        <link rel="stylesheet" href="<?=TEMPLATE_ROOT ?>css/style.css">
+        <link rel="stylesheet" href="<?=CUSTOMER_PORTAL_URL ?>HTML_QuickForm2/data/quickform.css">
+        <script src="<?=TEMPLATE_ROOT ?>js/vendor/modernizr-2.6.1.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div class="mainContainer">
+            <?php if(!empty($this->templateSettings["logoUrl"])) { ?>
+                <img src='<?php echo $this->templateSettings["logoUrl"] ?>' class='logo' alt='CustomerPortal <?php echo COMPANY_NAME ?>'>
+            <?php } ?>
+            <div class="languageSwitch">
+                <?php if(!empty($_SESSION["cp_user"])) { echo "Hallo ".$_SESSION["cp_user"]["firstname"]." ".$_SESSION["cp_user"]["lastname"] ?><br><a href='<?php echo CUSTOMER_PORTAL_URL."/logout.html" ?>'>Logout</a><br><?php } ?>
+                <?php foreach($this->supported_locales as $key => $value) { ?>
+                    <a href='<?=CUSTOMER_PORTAL_URL ?><?=$value ?>/<?=$this->current_page ?>.html'><img src='<?=TEMPLATE_ROOT ?>img/flags/<?=strtoupper($key) ?>.png' /></a>
+                <?php } ?>
+            </div>
+            <div class="headerText">
+                <?php echo $this->templateSettings["headerText"] ?>
+            </div>
+            <div class="clearfix"></div>
+            <div class="navigationContainer clearfix">
+                <? if(!empty($this->navigation)) { ?>
+                <ul class="navigation">
+                    <? foreach($this->navigation as $title => $url) { ?>
+                            <li class='<?=($url == CURRENT_PAGE ?"active":"") ?>'><a href='<? echo $url ?>'><?=T_($title) ?></a></li>
+                    <? } ?>
+                </ul>
+                <? } ?>
+            </div>
+
+            <? if(isset($this->jstree) && $this->jstree == true) { ?>
+                <div id="jstree_container" class="jstree_container">
+                </div>
+                <div id="jstree_content" class="jstree_content"></div>
+            <? } ?>
+            <?php echo $this->mainContent; ?>
+        </div>
+        <div class="footer">
+            <p>
+                <?php echo T_("CustomerPortal developed by") ?><a href='http://vtiger.stefanwarnat.de'>Stefan Warnat</a>
+            </p>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?=TEMPLATE_ROOT ?>js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+        <script src="<?=CUSTOMER_PORTAL_URL ?>/external/jstree/jquery.jstree.js"></script>
+        <script src="<?=TEMPLATE_ROOT ?>js/plugins.js"></script>
+        <script src="<?=TEMPLATE_ROOT ?>js/jquery.history.min.js"></script>
+
+        <script src="<?=TEMPLATE_ROOT ?>js/main.js"></script>
+
+<? if(isset($this->jstree) && $this->jstree == true) { ?>
+<script type="text/javascript" class="source below">
+    $(function () {
+        preLoadId = false;
+
+        // Bind a handler for ALL hash/state changes
+        $.History.bind(function(state){
+            // Update the current element to indicate which state we are now on
+            console.log('Our current state is: ['+state+']');
+        });
+
+    <? if(empty($_GET["operation"])) { ?>
+        if(window.location.hash.substr(0, 9) == "#/jstree/") {
+            preLoadId = window.location.hash.substr(9);
+        }
+    <? } ?>
+
+   	$("#jstree_container")
+               .jstree({
+               		// List of active plugins
+               		"plugins" : [
+               			"themes","json_data","ui","crrm","dnd","search"
+               		],
+                   initially_open: [preLoadId],
+
+               		// I usually configure the plugin that handles the data first
+               		// This example uses JSON as it is most common
+               		"json_data" : {
+               			// This tree is ajax enabled - as this is most common, and maybe a bit more complex
+               			// All the options are almost the same as jQuery's AJAX (read the docs)
+               			"ajax" : {
+               				// the URL to fetch the data
+               				"url" : "<?=$this->jstreeURL ?>",
+               				// the `data` function is executed in the instance's scope
+               				// the parameter is the node being loaded
+               				// (may be -1, 0, or undefined when loading the root nodes)
+               				"data" : function (n) {
+               					// the result is fed to the AJAX request `data` option
+               					return {
+               						"operation" : "get_children",
+               						"id" : n.attr ? n.attr("id").replace("node_","") : 1
+               					};
+               				}
+               			}
+               		},
+               		// Configuring the search plugin
+               		"search" : {
+               			// As this has been a common question - async search
+               			// Same as above - the `ajax` config option is actually jQuery's AJAX object
+               			"ajax" : {
+               				"url" : "<?=$this->jstreeURL ?>",
+               				// You get the search string as a parameter
+               				"data" : function (str) {
+               					return {
+               						"operation" : "search",
+               						"search_str" : str
+               					};
+               				}
+               			}
+               		},
+
+               		// UI & core - the nodes to initially select and open will be overwritten by the cookie plugin
+
+               		// the UI plugin - it handles selecting/deselecting/hovering nodes
+               		"ui" : {
+               			// this makes the node with ID node_4 selected onload
+               			"initially_select" : [ "node_4" ]
+               		},
+               		// the core plugin - not many options here
+               		"core" : {
+               			// just open those two nodes up
+               			// as this is an AJAX enabled tree, both will be downloaded from the server
+               			"initially_open" : [ "node_2" , "node_3" ]
+               		}
+               	})   		// 1) if using the UI plugin bind to select_node
+   		.bind("select_node.jstree", function (event, data) {
+            $.History.go("/jstree/" + data.rslt.obj.attr("id"));
+
+           jQuery("#jstree_content").html("<div style='text-align:center;margin:40px 0'><?=T_("Content is loading ..."); ?><br><br><img src='<?=TEMPLATE_ROOT ?>/img/ajax-loader.gif'></div>");
+
+            jQuery.post("<?=$this->jstreeURL ?>", {operation:"content", id:data.rslt.obj.attr("id")}, function(response) {
+                jQuery("#jstree_content").html(response);
+
+            }, "html");
+   		})
+        .bind("loaded.jstree", function (event, data) {
+           if(preLoadId !== false) {
+               $.jstree._focused().select_node("#" + preLoadId);
+           }
+   		})
+   		// 2) if not using the UI plugin - the Anchor tags work as expected
+   		//    so if the anchor has a HREF attirbute - the page will be changed
+   		//    you can actually prevent the default, etc (normal jquery usage)
+   		.delegate("a", "click", function (event, data) { event.preventDefault(); })
+   });
+
+    <? if(!empty($_GET["operation"])) { ?>
+        jQuery("#jstree_content").html("<div style='text-align:center;margin:40px 0'><?=T_("Content is loading ..."); ?><br><br><img src='<?=TEMPLATE_ROOT ?>/img/ajax-loader.gif'></div>");
+
+         jQuery.post("<?=$this->jstreeURL ?>", {operation:"<?=$_GET["operation"] ?>", id:0}, function(response) {
+             jQuery("#jstree_content").html(response);
+
+         }, "html");
+    <? } ?>
+   </script>
+<? } ?>
+
+    </body>
+</html>

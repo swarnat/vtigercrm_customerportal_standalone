@@ -1,0 +1,28 @@
+<p class="headline">
+    <? echo T_("Your Invoices"); ?>
+</p>
+<p>
+    <?php echo T_("Here you can see all invoices for your account."); ?>
+</p>
+<table style='width:100%;font-size:12px;'>
+    <thead>
+        <th style="text-align:left;">Subject</th>
+        <th style="text-align:center;">Total</th>
+        <th style="text-align:left;">Created</th>
+    </thead>
+<? foreach($this->invoices as $invoice) {
+        $currency = explode("x", $invoice["currency_id"]);
+        $currencyId = $currency[1];
+
+        #$invoiceID = explode("x", $invoice["id"]);
+        #$invoiceID = $invoiceID[1];
+?>
+    <tbody>
+        <tr>
+            <td style="width:200px;"><a href='invoice.html?id=<?=$invoice["id"] ?>'><?=$invoice["subject"] ?></a></td>
+            <td style="width:80px;text-align:right;padding-right:15px;"><?=round(floatval($invoice["hdnGrandTotal"]), 2)." ".$this->currencies[$currencyId]["currency_code"] ?></td>
+            <td><?=date("d.m.Y", strtotime($invoice["createdtime"])) ?></td>
+        </tr>
+    </tbody>
+<? } ?>
+</table>

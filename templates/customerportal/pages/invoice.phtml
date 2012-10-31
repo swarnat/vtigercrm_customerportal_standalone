@@ -1,0 +1,42 @@
+<p class="headline">
+    <? echo T_("Invoice Nr.")." ".$this->invoice["internal"]["invoice_number"]; ?>
+</p>
+<p>
+    <?php echo T_("To change a value on this page, you have to contact us."); ?>
+</p>
+<div class="invoice_header quickform">
+    <div class="left-box">
+        <fieldset>
+            <legend><?=T_("Billing Address") ?></legend>
+            <p class='readonly'>
+                <label><?=T_("Billing Address"); ?>:</label>
+                <span><?=$this->invoice["bill_street"] ?></span>
+            </p>
+            <p class='readonly'>
+                <label><?=T_("Billing City"); ?>:</label>
+                <span><?=$this->invoice["bill_city"] ?></span>
+            </p>
+            <p class='readonly'>
+                <label><?=T_("Billing Postal Code"); ?>:</label>
+                <span><?=$this->invoice["bill_code"] ?></span>
+            </p>
+        </fieldset>
+    </div>
+    <div class="right-box">
+        <fieldset>
+            <legend><?=T_("Shipping Address") ?></legend>
+            <p class='readonly'>
+                <label><?=T_("Shipping Address"); ?>:</label>
+                <span><?=$this->invoice["bill_street"] ?></span>
+            </p>
+            <p class='readonly'>
+                <label><?=T_("Shipping City"); ?>:</label>
+                <span><?=$this->invoice["bill_city"] ?></span>
+            </p>
+            <p class='readonly'>
+                <label><?=T_("Shipping Postal Code"); ?>:</label>
+                <span><?=$this->invoice["bill_code"] ?></span>
+            </p>
+        </fieldset>
+    </div>
+</div>

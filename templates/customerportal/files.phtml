@@ -1,0 +1,13 @@
+<table width='100%'>
+<?
+foreach($this->documents as $doc) {
+?>
+    <tr>
+        <td width=400><a href='documents.html?fileid=<?php echo $doc["attachmentsid"] ?>&hash=<?=$doc["secure-hash"] ?>'><? echo $doc["name"] ?></a></td>
+        <td width=100><? echo $this->filesize($doc["filesize"]) ?></td>
+        <td width=100><? echo date("d.m.Y", strtotime($doc["modifiedtime"])) ?></td>
+    </tr>
+<?
+}
+?>
+</table>

@@ -1,0 +1,27 @@
+<?
+    return array (
+        'Contact Person' => 'Kontaktperson',
+        'Contact Person (DE)' => 'deutsche Kontaktperson',
+        'Contact person\'s eMail address' => 'eMail Adresse',
+        'Contact person\'s phone number' => 'Telefonnummer',
+        'Do you have a contact person in Germany?' => 'Gibt es einen Ansprechpartner in Deutschland?',
+        'Do you receive a stipend?' => 'Ist Ihr Praktikum bezahlt?',
+        'Field of Internship' => 'Branche',
+        'German contact person' => 'Deutsche Kontaktperson',
+        'Have you already requested a J-1 visa?' => 'Haben Sie bereits ein J-1 Visum beantragt?',
+        'Here you can see all invoices for your account.' => 'Hier sehen Sie alle Rechnungen für Ihren Account.',
+        'Host Company Name' => 'Name der Host Company',
+        'Host company\'s name' => 'deutscher Firmenname',
+        'If yes - how much do you receive per month?' => 'Wenn ja, wieviel bekommen Sie pro Monat?',
+        'If yes - which Category?' => 'Wenn ja, in welcher Kategorie',
+        'J-2 visa for spouse or unmarried child under 21?' => 'J-2 Visum für Ehepartner und Kinder bis 21 Jahre?',
+        'MENU_APPLICANTS_DATA' => 'Teilnehmerdaten 2',
+        'MENU_CONTACT_DATA' => 'Kontaktdaten',
+        'Scheduled begin of internship' => 'Beginn des Praktikums',
+		 'Scheduled end of internship' => 'Ende des Praktikums',
+		 'Visa Informations' => 'Visumsinformationen',
+		 'Your Company informations' => 'Ihre Kontaktdaten',
+		 'Your Contact informations' => 'Ihre Kontaktdaten',
+		 'Your Files' => 'Ihre Dateien',
+		 'Your Invoices' => 'Ihre Dateien'
+ );

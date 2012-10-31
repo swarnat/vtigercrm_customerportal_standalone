@@ -1,0 +1,29 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Stefan Warnat <support@stefanwarnat.de>
+ * Date: 24.09.12
+ * Time: 11:11
+ */
+echo "<h3>".T_("Comments for this record")."</h3>";
+
+echo "<div class='comment_container'>";
+foreach($this->comments as $comment) {
+    echo "<div class='comment_header'>".T_("Author").": <span class='comment_author'>".$comment["author"]."</span> ".T_("on")." ".$comment["createdtime"]."</div>";
+    echo "<div class='comment_content'>".utf8_encode(html_entity_decode(nl2br($comment["comments"])))."</div>";
+}
+echo "</div>";
+
+if(isset($this->writeComment) && $this->writeComment == true) {
+    ?>
+<div class='comment_header'><?=T_("Write new comment") ?></div>
+    <div class='comment_content'><form method="POST" action="#">
+        <input type='hidden' name="comment[secure]" value="<?=sha1($this->module."#".$this->recordId."#".SECURITY_SALT."#".$_SESSION["cp_user"]["id"]) ?>" />
+        <input type='hidden' name="comment[module]" value="<?=$this->module ?>" />
+        <input type='hidden' name="comment[crmid]" value="<?=$this->recordId ?>" />
+        <textarea class='new_comment_content' name="comment[content]"></textarea>
+        <br><input type="submit" name="create_comment" value="<?=T_("Create comment") ?>" /></form>
+    </div>
+    <?
+}
+?>
