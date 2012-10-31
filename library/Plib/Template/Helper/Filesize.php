@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Stefan
- * Date: 08.09.12
- * Time: 14:46
- */
 class Plib_Template_Helper_Filesize
 {
     public static function filesize($template, $value) {

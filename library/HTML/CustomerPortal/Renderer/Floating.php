@@ -2,12 +2,6 @@
 
 require_once("HTML/QuickForm2/Renderer/Default.php");
 
-/**
- * Created by JetBrains PhpStorm.
- * User: Stefan Warnat <support@stefanwarnat.de>
- * Date: 23.09.12
- * Time: 14:25
- */
 class HTML_Customerportal_Renderer_Floating extends HTML_QuickForm2_Renderer_Default
 {
     private $_elementCounter = 0;

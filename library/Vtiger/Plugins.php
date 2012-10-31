@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Stefan
- * Date: 09.09.12
- * Time: 12:19
- */
 class Vtiger_Plugins
 {
     private $_actions = array();

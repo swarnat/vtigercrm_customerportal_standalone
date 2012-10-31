@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Stefan Warnat <support@stefanwarnat.de>
- * Date: 04.09.12
- * Time: 13:31
- */
 require_once("Plugins.php");
 
 class Vtiger_Customerportal extends Vtiger_Plugins

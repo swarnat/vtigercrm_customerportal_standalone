@@ -22,7 +22,7 @@ define("SECURITY_SALT", '3w09fH2N');
 /**
  * Define for default Template, to show your company name
  */
-define("COMPANY_NAME", "German American Chamber of Commerce");
+define("COMPANY_NAME", "Customer Portal");
 
 $templateSettings = array(
     "logoUrl" => "http://www.praktika.de/styles/images/logo.png",
@@ -72,26 +72,17 @@ $mainNavigation = array(
     "MENU_DOCUMENTS_DATA" => "documents.html",
     "MENU_ACCOUNT_DATA" => "organization.html",
     "MENU_INVOICE_DATA" => "invoice_list.html",
-    "MENU_TICKETS_DATA" => "tickets.html",
-    "MENU_LICENSES_DATA" => "serials.html"
-
+    "MENU_TICKETS_DATA" => "tickets.html"
 );
 
 /**
  * Different Configurations, you have to setup before all values are display correctly
  */
 $moduleConfigurations = array(
-
     "Invoice" => array(
         "field_invoice_number" => "invoice_number",         # Field of Invoice Number
         "field_invoice_date" => "invoice_booking_date",     # Field of Invoice Booking Date
     )
-);
-
-$licenseServerConfiguration = array(
-    "ip" => "localhost",
-    "username" => "stefan",
-    "password" => "warnat"
 );
 
 /* Expert Only !!! */

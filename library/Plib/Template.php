@@ -1,12 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Stefan
- * Date: 12.08.2010
- * Time: 14:19:50
- * To change this template use File | Settings | File Templates.
- */
- 
+
 class Plib_Template {
 	public function assign($spec, $value = null, $append = false)
     {
