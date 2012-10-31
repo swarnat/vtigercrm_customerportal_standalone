@@ -8,6 +8,7 @@ if(!empty($_POST["create"]) && $_POST["create"] == "1") {
 
     $values = $_POST;
     $values["parent_id"] = getWSUserId();
+
     $connection->createRecord("HelpDesk", $values);
 }
 

@@ -7,43 +7,45 @@
 <?
 define("CURRENT_PAGE", "contact.html");
 
-$connection = getConnection();
+$module = "Contacts";
+$crmid = $_SESSION["cp_user"]["id"];
 
-$contact = $connection->getRecord("Contacts", $_SESSION["cp_user"]["id"]);
+    // Get CustomerPortal Connection
+    $connection = getConnection();
 
-require_once 'HTML/QuickForm2.php';
-require_once 'HTML/QuickForm2/Renderer.php';
+    // Load Contact Record
+    $record = $connection->getRecord($module, $crmid);
 
-$form = new HTML_QuickForm2('elements');
-$form->setAttribute('action', "#");
+    require_once 'HTML/QuickForm2.php';
+    require_once 'HTML/QuickForm2/Renderer.php';
 
-$form->addDataSource(new HTML_QuickForm2_DataSource_Array($contact));
+    $form = new HTML_QuickForm2('elements');
+    $form->setAttribute('action', "#");
 
-$fields = $connection->getFields("Contacts");
+    if(!empty($record) && is_array($record)) {
+        $form->addDataSource(new HTML_QuickForm2_DataSource_Array($record));
+    }
 
-addFields($fields, $form);
+    $fields = $connection->getFields($module);
 
-// submit buttons in nested fieldset
-$form->addElement(
-    'submit', 'testSubmit', array('value' => 'Save this values')
-);
+    addFields($fields, $form);
 
-if ('POST' == $_SERVER['REQUEST_METHOD'] && $form->isSubmitted()) {
-    echo "<pre>\n";
+    // submit buttons in nested fieldset
+    $form->addElement(
+        'submit', 'testSubmit', array('value' => 'Save this values')
+    );
 
-    $values = $form->getValue();
-    $connection->setRecord("Contacts", $_SESSION["cp_user"]["id"], $values);
-    echo "</pre>\n<hr />";
-    // let's freeze the form and remove the reset button
-#    $fsButton->removeChild($testReset);
- #   $form->toggleFrozen(true);
-}
+    if ('POST' == $_SERVER['REQUEST_METHOD'] && $form->isSubmitted()) {
+        $values = $form->getValue();
 
-$renderer = HTML_QuickForm2_Renderer::factory('default');
-$form->render($renderer);
-// Output javascript libraries, needed by hierselect
-#echo $renderer->getJavascriptBuilder()->getLibraries(true, true);
-echo $renderer;
+        $connection->setRecord($module, $crmid, $values);
+    }
+
+    $renderer = HTML_QuickForm2_Renderer::factory('default');
+    $form->render($renderer);
+    // Output javascript libraries, needed by hierselect
+    #echo $renderer->getJavascriptBuilder()->getLibraries(true, true);
+    echo $renderer;
 
 // Change Userlogin
     $form = new HTML_QuickForm2('change_user', "post", null, true);
@@ -76,7 +78,7 @@ echo $renderer;
                        HTML_QuickForm2_Rule::ONBLUR_CLIENT_SERVER);
 
     $fieldset->addElement(
-		'submit', 'testSubmit', array('value' => 'Test Submit')
+		'submit', 'testSubmit', array('value' => 'change login')
 	);
 
 	if ('POST' == $_SERVER['REQUEST_METHOD'] && $form->isSubmitted()) {
@@ -92,10 +94,6 @@ echo $renderer;
 
             echo "<p class='hint success'>".__("Your Login Information are successfully changed!")."</p>";
         }
-
-		// let's freeze the form and remove the reset button
-	#    $fsButton->removeChild($testReset);
-	 #   $form->toggleFrozen(true);
 	}
 
 	$renderer = HTML_QuickForm2_Renderer::factory('default');

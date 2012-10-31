@@ -288,3 +288,7 @@ p.error {
 	background-color: #ffbaba;
 	background-image: url('/wp-content/themes/gaccca/images/icons/x_24x24.png');
 }
+
+#jstree_container a { white-space:normal !important; height: auto; padding:1px 2px; }
+#jstree_container li > ins { vertical-align:top; }
+#jstree_container .jstree-hovered, #demo4 .jstree-clicked { border:0; }

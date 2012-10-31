@@ -25,7 +25,7 @@ define("SECURITY_SALT", '3w09fH2N');
 define("COMPANY_NAME", "Customer Portal");
 
 $templateSettings = array(
-    "logoUrl" => "http://www.praktika.de/styles/images/logo.png",
+    "logoUrl" => "https://www.vtiger.com/crm/images/frontpagelogo/vtiger%20logo2.png",
     "headerText" => "CustomerPortal",
 );
 
@@ -71,7 +71,7 @@ $mainNavigation = array(
     "MENU_CONTACT_DATA" => "contact.html",
     "MENU_DOCUMENTS_DATA" => "documents.html",
     "MENU_ACCOUNT_DATA" => "organization.html",
-    "MENU_INVOICE_DATA" => "invoice_list.html",
+    #"MENU_INVOICE_DATA" => "invoice_list.html",
     "MENU_TICKETS_DATA" => "tickets.html"
 );
 

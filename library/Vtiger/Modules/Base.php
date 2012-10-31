@@ -35,8 +35,7 @@ class Vtiger_Modules_Base
     }
 
     public function createRecord($values) {
-
-        return $this->_client->doCreate($this->moduleName, $values, $this->_debug);
+        return $this->_client->doCreate($this->moduleName, $values);
 
     }
 

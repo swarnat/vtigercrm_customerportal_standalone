@@ -136,6 +136,9 @@ class Vtiger_Customerportal extends Vtiger_Plugins
     public function doUpdate($data) {
         return $this->call("doUpdate", array("data" => json_encode($data)));
     }
+    public function doCreate($module, $data) {
+        return $this->call("doCreate", array("module" => $module, "data" => json_encode($data)));
+    }
     public function doQuery($query) {
         return $this->call("doQuery", array("query" => $query));
     }
@@ -196,6 +199,12 @@ var_dump($result);
         return $obj;
     }
 
+    /**
+     * create record
+     * @param $module module of new record
+     * @param $values values of the new record
+     * @return bool
+     */
     public function createRecord($module, $values) {
         $values = $this->prepareDataForTransfer($module, $values);
 
@@ -221,6 +230,11 @@ var_dump($result);
         return $result;
     }
 
+    /**
+     * @param $module Module of the Record
+     * @param $crmID ID for the record
+     * @return mixed
+     */
     public function getRecord($module, $crmID) {
 
         $obj = $this->getObj($module);
@@ -230,6 +244,13 @@ var_dump($result);
         return $result;
     }
 
+    /**
+     * function get comments, related to a record
+     *
+     * @param $module module of the record
+     * @param $crmID id of the record
+     * @return mixed
+     */
     public function getComments($module, $crmID) {
 
         $obj = $this->getObj($module);
@@ -254,6 +275,13 @@ var_dump($result);
 
         return $values;
     }
+
+    /**
+     * @param $module module of record
+     * @param $crmID crmid of the record
+     * @param $values value-array
+     * @return bool
+     */
     public function setRecord($module, $crmID, $values) {
         $values = $this->prepareDataForTransfer($module, $values);
 
@@ -266,6 +294,12 @@ var_dump($result);
         return true;
     }
 
+    /**
+     * @param $module source module
+     * @param $crmID source crmid
+     * @param $targetModule module, which is related to source record
+     * @return mixed
+     */
     public function getRelated($module, $crmID, $targetModule) {
         if(isset($this->_recordCache[$module."#-#".$crmID."#-#".$targetModule])) {
             return $this->_recordCache[$module."#-#".$crmID."#-#".$targetModule];
