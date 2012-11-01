@@ -29,6 +29,9 @@ if (isset($_SESSION['HTTP_USER_AGENT'])) {
     $_SESSION["checkString"] = sha1($string);
 }
 
+set_error_handler("error_handler");
+register_shutdown_function("shutdown_handler");
+
 /**
  * Variables
  */
@@ -63,3 +66,4 @@ $pluginHandler = new Vtiger_Plugins();
 $pluginHandler->loadPlugins(dirname(__FILE__)."/../plugins/");
 
 $pluginHandler->do_action("init");
+

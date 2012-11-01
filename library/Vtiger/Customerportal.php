@@ -92,17 +92,17 @@ class Vtiger_Customerportal extends Vtiger_Plugins
 		
         $err = $this->_client->getError();
 
-        if ($err) {
-            $this->_client = false;
-            echo "Verbindung zum CustomerPortal konnte nicht hergestellt werden. (".$err.")";
-            return false;
-        }
-
         $loginResult = $this->call("ws_login", array("username" => $this->_config["username"], "accesskey" => $this->_config["accesskey"]));
 
-        if($loginResult["result"] == false) {
+        $err = $this->_client->getError();
+
+        if($err || $loginResult["result"] == false) {
+            if($loginResult["result"] === false) {
+                $err = $loginResult["error"];
+            }
+            error_handler(E_ERROR, "Couldn't connect to vtigerCRM (".$err.")", "", "");
+
             $this->_client = false;
-            echo "Verbindung zum CustomerPortal konnte nicht hergestellt werden. (LOGIN)";
             return false;
         }
 
@@ -134,7 +134,12 @@ class Vtiger_Customerportal extends Vtiger_Plugins
     }
 
     public function doUpdate($data) {
-        return $this->call("doUpdate", array("data" => json_encode($data)));
+        $return = $this->call("doUpdate", array("data" => json_encode($data)));
+
+        if($return["result"] == "error") {
+            error_handler(E_ERROR, $return["message"], __FILE__, __LINE__);
+        }
+        return $return["return"];
     }
     public function doCreate($module, $data) {
         return $this->call("doCreate", array("module" => $module, "data" => json_encode($data)));
@@ -289,7 +294,7 @@ var_dump($result);
 
         $obj = $this->getObj($module);
 
-        $obj->setRecord($crmID, $values);
+        $result = $obj->setRecord($crmID, $values);
 
         return true;
     }

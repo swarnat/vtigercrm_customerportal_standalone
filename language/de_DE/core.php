@@ -9,6 +9,7 @@
         'City' => 'Stadt',
         'City (DE)' => 'Stadt',
         'City of Birth' => 'Geburtsstadt',
+        'Every Downloadlink is only valid for 1 hour. Please reload page to get a new link!' => 'Jeder Link ist immer bis zur nächsten vollen Stunde gültig. Danach muss dieser, durch Neuladen der Seite, erneuert werden.',
         'Comments for this record' => 'Kommentare für diesen Eintrag',
         'Content is loading ...' => 'Inhalt wird geladen ...',
         'Create comment' => 'Kommentar erstellen',

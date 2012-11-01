@@ -16,24 +16,7 @@ $crmid = $_SESSION["cp_user"]["id"];
     // Load Contact Record
     $record = $connection->getRecord($module, $crmid);
 
-    require_once 'HTML/QuickForm2.php';
-    require_once 'HTML/QuickForm2/Renderer.php';
-
-    $form = new HTML_QuickForm2('elements');
-    $form->setAttribute('action', "#");
-
-    if(!empty($record) && is_array($record)) {
-        $form->addDataSource(new HTML_QuickForm2_DataSource_Array($record));
-    }
-
-    $fields = $connection->getFields($module);
-
-    addFields($fields, $form);
-
-    // submit buttons in nested fieldset
-    $form->addElement(
-        'submit', 'testSubmit', array('value' => 'Save this values')
-    );
+    $form = insertForm($module, $record);
 
     if ('POST' == $_SERVER['REQUEST_METHOD'] && $form->isSubmitted()) {
         $values = $form->getValue();
@@ -41,11 +24,6 @@ $crmid = $_SESSION["cp_user"]["id"];
         $connection->setRecord($module, $crmid, $values);
     }
 
-    $renderer = HTML_QuickForm2_Renderer::factory('default');
-    $form->render($renderer);
-    // Output javascript libraries, needed by hierselect
-    #echo $renderer->getJavascriptBuilder()->getLibraries(true, true);
-    echo $renderer;
 
 // Change Userlogin
     $form = new HTML_QuickForm2('change_user', "post", null, true);

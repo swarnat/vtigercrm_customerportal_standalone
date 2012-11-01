@@ -55,7 +55,7 @@ class Plib_Template {
         }
 
 		$strOutput = ob_get_contents();
-		ob_clean();
+		ob_end_clean();
 
 		// Zend_Debug::Dump($strOutput);
 		return $strOutput;

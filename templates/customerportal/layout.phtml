@@ -17,6 +17,14 @@
         <link rel="stylesheet" href="<?=TEMPLATE_ROOT ?>css/style.css">
         <link rel="stylesheet" href="<?=CUSTOMER_PORTAL_URL ?>HTML_QuickForm2/data/quickform.css">
         <script src="<?=TEMPLATE_ROOT ?>js/vendor/modernizr-2.6.1.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?=TEMPLATE_ROOT ?>js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+        <script src="<?=CUSTOMER_PORTAL_URL ?>/external/jstree/jquery.jstree.js"></script>
+        <script src="<?=TEMPLATE_ROOT ?>js/plugins.js"></script>
+        <script src="<?=TEMPLATE_ROOT ?>js/jquery.history.min.js"></script>
+
+        <script src="<?=TEMPLATE_ROOT ?>js/main.js"></script>
+
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -57,17 +65,10 @@
         </div>
         <div class="footer">
             <p>
-                <?php echo T_("CustomerPortal developed by") ?><a href='http://vtiger.stefanwarnat.de'>Stefan Warnat</a>
+                <?php echo T_("CustomerPortal developed by") ?> <a href='http://vtiger.stefanwarnat.de'>Stefan Warnat</a>
             </p>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?=TEMPLATE_ROOT ?>js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
-        <script src="<?=CUSTOMER_PORTAL_URL ?>/external/jstree/jquery.jstree.js"></script>
-        <script src="<?=TEMPLATE_ROOT ?>js/plugins.js"></script>
-        <script src="<?=TEMPLATE_ROOT ?>js/jquery.history.min.js"></script>
-
-        <script src="<?=TEMPLATE_ROOT ?>js/main.js"></script>
 
 <? if(isset($this->jstree) && $this->jstree == true) { ?>
 <script type="text/javascript" class="source below">

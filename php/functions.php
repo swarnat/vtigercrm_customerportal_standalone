@@ -145,8 +145,6 @@ function insertForm($module, $record) {
 
     addFields($fields, $form);
 
-    $form->addElement('hidden', 'account_id')->setValue($record["id"]);
-
     $form->addElement(
         'submit', 'testSubmit', array('value' => 'Save this values')
     );
@@ -158,4 +156,71 @@ function insertForm($module, $record) {
     echo $renderer;
 
     return $form;
+}
+
+function error_handler($errno, $errstr, $errfile, $errline) {
+    global $current_user;
+
+    switch ($errno){
+        case E_ERROR: // 1 //
+            $typestr = 'E_ERROR'; break;
+        case E_WARNING: // 2 //
+            $typestr = 'E_WARNING'; break;
+        case E_PARSE: // 4 //
+            $typestr = 'E_PARSE'; break;
+        case E_CORE_ERROR: // 16 //
+            $typestr = 'E_CORE_ERROR'; break;
+        case E_CORE_WARNING: // 32 //
+            $typestr = 'E_CORE_WARNING'; break;
+        case E_COMPILE_ERROR: // 64 //
+            $typestr = 'E_COMPILE_ERROR'; break;
+        case E_CORE_WARNING: // 128 //
+            $typestr = 'E_COMPILE_WARNING'; break;
+        case E_USER_ERROR: // 256 //
+            $typestr = 'E_USER_ERROR'; break;
+        case E_USER_WARNING: // 512 //
+            $typestr = 'E_USER_WARNING'; break;
+        case E_RECOVERABLE_ERROR: // 4096 //
+            $typestr = 'E_RECOVERABLE_ERROR'; break;
+        default:
+            return true;
+    }
+
+    ob_clean();
+
+    $html = "<html>";
+    $html .= "<body style='font-family:Arial;'>";
+    $html .= "<h2>Customerportal Error occurred</h2>";
+
+    $htmlx = "<table style='font-size:14px;font-family:Courier;'>";
+    $htmlx .= "<tr><td width=100>ERROR:</td><td><strong>".$typestr."</strong></td></tr>";
+    $htmlx .= "<tr><td>LOCATION:</td><td><em>".$errfile." [".$errline."]</td></tr>";
+    $htmlx .= "<tr><td>URL:</td><td><em>".$_SERVER["REQUEST_URI"]."</em></td></tr>";
+    $htmlx .= "</table>";
+    $htmlx .= "<br>";
+    $htmlx .= $errstr;
+    if(DEBUG) {
+        $html .= $htmlx;
+    }
+    $html .= "</body>";
+    $html .= "</html>";
+    echo $html;
+    echo "<br><br><strong>The Systemadministrator has been notified!</strong>";
+
+    $subject = 'Customerportal error';
+
+    $headers = "From: " . ADMIN_MAIL_SENDER . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+    mail(ADMIN_MAIL, $subject, $html.$htmlx, $headers);
+    exit();
+    return true;
+}
+
+function shutdown_handler() {
+    if ($error = error_get_last()) {
+        error_handler($error['type'], $error['message'], $error['file'], $error['line']);
+    }
+
 }

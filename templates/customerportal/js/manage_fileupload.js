@@ -64,7 +64,7 @@ jQuery(function() {
 	});
 
     uploader.bind('StateChanged', function(up) {
-		// if(up.state == plupload.STOPPED) window.location.reload();
+		if(up.state == plupload.STOPPED) window.location.reload();
 	});
 });
 function removeFile(id) {

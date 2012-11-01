@@ -5,8 +5,8 @@ ini_set("display_errors", "1");
 require_once("config/config.internal.php");
 require_once("config/config.inc.php");
 
-require_once("php/startup.inc.php");
 require_once("php/functions.php");
+require_once("php/startup.inc.php");
 
 if(empty($_GET["ajax"])) {
     $ajax = false;

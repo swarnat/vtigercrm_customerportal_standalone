@@ -14,7 +14,7 @@ class Vtiger_Plugins
 
         foreach($plugins as $plugin) {
 
-            if(!empty($plugin) && $plugin != "." && $plugin != "..") {
+            if(!empty($plugin) && $plugin != "." && $plugin != ".." && $plugin != "index.txt") {
                 require_once($path."/enabled/".$plugin."/".$plugin.".php");
             }
 
