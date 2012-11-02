@@ -271,22 +271,18 @@ p.hint {
 p.info {
 	color: #00529b;
 	background-color: #bde5f8;
-	background-image: url('/wp-content/themes/gaccca/images/icons/info_24x24.png');
 }
 p.success {
 	color: #4f8a10;
 	background-color: #dff2bf;
-	background-image: url('/wp-content/themes/gaccca/images/icons/check_24x24.png');
 }
 p.warning {
 	color: #9f6000;
 	background-color: #feefb3;
-	background-image: url('/wp-content/themes/gaccca/images/icons/warning_24x24.png');
 }
 p.error {
 	color: #d8000c;
 	background-color: #ffbaba;
-	background-image: url('/wp-content/themes/gaccca/images/icons/x_24x24.png');
 }
 
 #jstree_container a { white-space:normal !important; height: auto; padding:1px 2px; }
