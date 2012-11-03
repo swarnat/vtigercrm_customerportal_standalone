@@ -79,16 +79,45 @@ class Vtiger_Customerportal extends Vtiger_Plugins
     }
 
     private function _connect() {
+        global $http_auth, $http_auth_credentials, $http_proxy;
+
         if($this->_client !== false) {
             return;
         }
+
         require_once("Nusoap/nusoap.php");
 
         $url = $this->_config["url"]."/modules/Customerportal2/server.php?wsdl";
 
         $this->_client = new nusoap_client($url, true);
 
-        #$this->_client->setUseCURL(true);
+        if(isset($http_proxy)) {
+            // Enable nuSOAP Proxy if configured
+            $this->_client->setHTTPProxy(
+                $http_proxy["url"],
+                $http_proxy["port"],
+                $http_proxy["proxy_user"],
+                $http_proxy["proxy_password"]
+            );
+        }
+
+        switch($http_auth) {
+            case "basic":
+                $this->_client->setCredentials($http_auth_credentials["username"], $http_auth_credentials["password"]);
+            break;
+            case "digest":
+                $this->_client->setCredentials($http_auth_credentials["username"], $http_auth_credentials["password"], "digest");
+            break;
+            case "certificate":
+                $this->_client->setCredentials("user", "password", "certificate",
+                    array(
+                        "sslcertfile" => $http_auth_credentials["sslcertfile"],
+                        "sslkeyfile" => $http_auth_credentials["sslkeyfile"],
+                        "passphrase" => $http_auth_credentials["passphrase"]
+                    )
+                );
+            break;
+        }
 		
         $err = $this->_client->getError();
 

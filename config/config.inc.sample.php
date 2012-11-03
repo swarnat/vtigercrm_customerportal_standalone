@@ -7,7 +7,7 @@ define("TEMPLATE_DIR", "customerportal");
 /**
  * Activate extended error messages
  */
-define("DEBUG", 0);
+define("DEBUG", 1);
 
 /**
  * URL to Customer Portal
@@ -33,13 +33,9 @@ define("COMPANY_NAME", "Customer Portal");
 
 $templateSettings = array(
     "logoUrl" => "https://www.vtiger.com/crm/images/frontpagelogo/vtiger%20logo2.png",
-    "headerText" => "CustomerPortal",
+    "headerText" => "Customerportal of ".COMPANY_NAME,
 );
 
-/**
- * Default Language
- */
-define('DEFAULT_LOCALE', 'en_US');
 
 /**
  * To allow different CustomerPortals for one vtiger system with different fieldconfiguration
@@ -49,12 +45,29 @@ define('DEFAULT_LOCALE', 'en_US');
  */
 define("CUSTOMERPORTAL_ID", "CUSTOMERPORTAL_ID");
 
+
+/**
+ * Default Language
+ */
+define('DEFAULT_LOCALE', 'en_US');
+
 /**
  * Languages to Select
  */
 $supported_locales = array(
     "EN" => 'en_US',
     "DE" => 'de_DE'
+);
+
+/**
+ * Main Navigation Fields
+ */
+$mainNavigation = array(
+    "MENU_CONTACT_DATA" => "contact.html",
+    "MENU_DOCUMENTS_DATA" => "documents.html",
+    "MENU_ACCOUNT_DATA" => "organization.html",
+    #"MENU_INVOICE_DATA" => "invoice_list.html",
+    "MENU_TICKETS_DATA" => "tickets.html"
 );
 
 /**
@@ -73,19 +86,54 @@ global $connectionSettings;
 $connectionSettings = array(
     "url" => "<urlToVtiger>",
     "username" => "<username>",
-    "accesskey" => "<assesskey>"
+    "accesskey" => "<accesskey>"
 );
 
 /**
- * Main Navigation Fields
+ * Use this Auth-Method to get access to your vtigerCRM (none|basic|digest|certificate)
  */
-$mainNavigation = array(
-    "MENU_CONTACT_DATA" => "contact.html",
-    "MENU_DOCUMENTS_DATA" => "documents.html",
-    "MENU_ACCOUNT_DATA" => "organization.html",
-    #"MENU_INVOICE_DATA" => "invoice_list.html",
-    "MENU_TICKETS_DATA" => "tickets.html"
+$http_auth = "none";
+
+/*
+	Uncomment this for basic http auth:
+
+$http_auth_credentials = array(
+	"username" => "swarnat",
+	"password" => "stefan34"
 );
+*/
+
+/*
+	Uncomment this for digest http auth
+
+$http_auth_credentials = array(
+	"username" => "swarnat",
+	"password" => "stefan"
+);
+*/
+
+/*
+	Uncomment this for digest http auth
+
+    You have to create two files with private key and public key in pem format
+
+$http_auth_credentials = array(
+	"sslcertfile" => dirname(__FILE__)."/publicKey.pem",
+	"sslkeyfile" => dirname(__FILE__)."/privateKey.pem",
+	"passphrase" => "asdf",
+);
+*/
+
+/*
+ * Uncomment this for usage of http proxy
+
+$http_proxy = array(
+    "url" => "",
+    "port" => 8080,
+    "proxy_user" => "",
+    "proxy_password" => ""
+);
+*/
 
 /**
  * Enable fileupload from customerportal
