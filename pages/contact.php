@@ -70,7 +70,7 @@ $crmid = $_SESSION["cp_user"]["id"];
 
             $return = $connection->changeLogin($_SESSION["cp_user"]["id"], $values["username"], $values["password1"]);
 
-            echo "<p class='hint success'>".__("Your Login Information are successfully changed!")."</p>";
+            $successMessage = true;
         }
 	}
 
@@ -82,5 +82,9 @@ $crmid = $_SESSION["cp_user"]["id"];
 	// Output javascript libraries, needed by hierselect
 	#echo $jsRenderer->getLibraries(true, true);
 	echo $renderer;
+
+    if($successMessage === true) {
+        echo "<div style='clear:both;'></div><p class='hint success'>".__("Your Login Information are successfully changed!")."</p>";
+    }
 
 ?>

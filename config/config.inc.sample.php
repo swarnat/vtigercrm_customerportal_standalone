@@ -36,6 +36,11 @@ $templateSettings = array(
     "headerText" => "Customerportal of ".COMPANY_NAME,
 );
 
+/**
+ * This RELAY_KEY would secure your WebForms - Relay
+ * set this to a random string with non limited length
+ */
+define("RELAY_KEY", "waP9awda48e/-paMHtcp(GIh");
 
 /**
  * To allow different CustomerPortals for one vtiger system with different fieldconfiguration

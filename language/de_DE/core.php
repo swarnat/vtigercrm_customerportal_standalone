@@ -40,5 +40,7 @@
         'ZIP Code' => 'Postzeitzahl',
         'Zip Code (DE)' => 'Postleitzahl',
         'eMail Address (DE)' => 'eMail',
-        'on' => 'auf'
+        'on' => 'auf',
+
+        "Our system couldn't find your username or the password is wrong." => "Unser System konnte den Login nicht durchführen.",
 );

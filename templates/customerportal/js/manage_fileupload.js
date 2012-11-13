@@ -1,8 +1,9 @@
 // Custom example logic
 var uploader;
 jQuery(function() {
+
 	uploader = new plupload.Uploader({
-		runtimes : 'gears,html5,flash,silverlight,browserplus',
+		runtimes : 'gears,html5,html4,flash,silverlight,browserplus',
 		browse_button : 'pickfiles',
 		container : 'container',
 		url : currentURL + "?fileupload=true",

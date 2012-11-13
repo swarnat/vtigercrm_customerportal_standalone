@@ -149,6 +149,8 @@ class Vtiger_Customerportal extends Vtiger_Plugins
     public function call($method, $args, $json_decode = true) {
         $args["WS_SESS_ID"] = $this->_sessionId;
 
+        $this->_connect();
+
         if(!empty($this->_sessionId)) {
             $this->_client->setCookie(VTIGER_SESSION_VARIABLE, $this->_sessionId);
         }
@@ -187,10 +189,10 @@ class Vtiger_Customerportal extends Vtiger_Plugins
         $this->_connect();
 
         $result = $this->call("login", array("username" => $username, "passwort" => $this->crypt_password($passwort)));
-var_dump($result);
         #self::setDebug(true);
 
         if($result["result"] === false) {
+            echo "<p class='hint error'>".T_("Our system couldn't find your username or the password is wrong.")."</p>";
             return false;
         } else {
             $return = array("id" => $result["contact_id"], "wsid" => $result["wscontact_id"], "firstname" => $result["firstname"], "lastname" => $result["lastname"], "module" => $result["module"]);
@@ -448,8 +450,8 @@ var_dump($result);
 
         $result = $this->call("createDocument", array("crmid" => $crmID, "folderid" => $folderid, "file" => ($values)));
 
-        var_dump($result);
-        #@unlink($fileArray["tmp_name"]);
+        // var_dump($result);
+        // @unlink($fileArray["tmp_name"]);
     }
 
     /** Plugin Bridge  **/
